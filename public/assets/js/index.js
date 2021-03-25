@@ -1,3 +1,7 @@
+// const express = require("express");
+// const serverjs = require("./server");
+// const fs = require ("fs");
+
 let noteTitle;
 let noteText;
 let saveNoteBtn;
