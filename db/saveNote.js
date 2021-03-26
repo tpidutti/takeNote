@@ -1,8 +1,9 @@
-const { response } = require("express");
+// const express = require("express");
 const fs = require("fs");
 const util = require("util");
 const db = require("./db.json");
 
+// takes a function and returns a version that gives promises
 const writeNote = util.promisify(fs.writeFile);
 const readNote = util.promisify(fs.readFile);
 
@@ -26,7 +27,7 @@ class SaveNote {
     return this.readAllNotes().then(response => [...response, newNote]).then(response => this.write(response)).then(() => this.readAllNotes())
     };
 
-    deleteNote(id) {
+    deleteANote(id) {
         return this.readAllNotes().then(response => response.filter(note => note.id !==id))
     };
 }
