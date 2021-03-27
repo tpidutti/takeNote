@@ -1,7 +1,7 @@
 const express = require("express");
 const fs = require("fs");
 const path = require("path");
-const SaveNote = require ("./SaveNote");
+const SaveNote = require ("./db/saveNote");
 
 // initailize the app, create port
 const app = express();
@@ -27,26 +27,35 @@ app.get("/notes", (req, res) => {
 // api routes
 app.get("/api/notes", (req, res) => {
     // retrieve all notes and res.json them back to the front end
-
-    readAllNotes()
-// returns a promise, the successful completion of an operation's value in the form of an object
-.then((notes) => res.json(notes))
-// respond with error message, generic internal server issue, if failure
-.catch((err) => res.status(500).json(err));
-    
+    SaveNote.readAllNotes()
+    // returns a promise, the successful completion of an operation's value in the form of an object
+    .then((notes) => res.json(notes))
+    // respond with error message, generic internal server issue, if failure
+    .catch((err) => res.status(500).json(err));
+ 
 });
 
-app.post("/api/notes", (req, res) => {
-    // creates a note from req.body
-    
-SaveNote
-    
-});
+// app.post("/api/notes", (req, res) => {
+//     // creates a note from req.body
+//     if (SaveNote.length = 8) {
+//         SaveNote.push(req.body);
+//         res.json(true);
+//       } else {
+//         waitListData.push(req.body);
+//         res.json(false);
+//       }
+// });
 
-app.delete("/api/notes/:id", (req, res) => {
-    // delete a note based off id
-    const { id } = req.params;
+// app.delete("/api/notes/:id", (req, res) => {
+//     // delete a note based off id
+//     const id = req.params;
+// };
+
+
+
+
+
+
 
 // start server on port
 app.listen(PORT, () => console.log("App listening on PORT" + PORT));
-
