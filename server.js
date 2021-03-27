@@ -35,26 +35,32 @@ app.get("/api/notes", (req, res) => {
  
 });
 
-// app.post("/api/notes", (req, res) => {
-//     // creates a note from req.body
-//     if (SaveNote.length = 8) {
-//         SaveNote.push(req.body);
-//         res.json(true);
-//       } else {
-//         waitListData.push(req.body);
-//         res.json(false);
-//       }
-// });
+app.post("/api/notes", (req, res) => {
+    // creates a note from req.body
+    SaveNote.addNote(req.body)
+    .then(notes => res.json(notes))
+    .catch(err => res.status(500).json(err));
+});
 
-// app.delete("/api/notes/:id", (req, res) => {
-//     // delete a note based off id
-//     const id = req.params;
-// };
+app.delete("/api/notes/:id", (req, res) => {
+    // delete a note based off id
+   const idNote = JSON.parse(req.params.id);
 
+   fs.readFile(__dirname + "/db/db.json", "utf8", function(err, notes){
+       if(err) {
+           return console.log(err)
+       }
+       notes = JSON.parse(notes)
 
-
-
-
+       notes =notes.filter(val => val.id !== noteId)
+    fs.writeFile(__dirname + "/db/db.json", JSON.stringify(notes), function(err, notes){
+        if(err) {
+            return err
+        }
+        res.json(notes)
+    })   
+   });
+});
 
 
 // start server on port

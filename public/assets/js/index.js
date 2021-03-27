@@ -68,6 +68,16 @@ const renderActiveNote = () => {
   }
 };
 
+const storageNote = localStorage.getItem("note-title");
+const storageNoteT = localStorage.getItem("note-textarea");
+saveNoteBtn.addEventListener("click", function(){
+  noteTitle.textContent = storageNote;
+  localStorage.setItem("note-title", storageNote);
+  noteText.textContent = storageNoteT;
+  localStorage.setItem("note-textarea", storageNoteT);
+});
+
+
 const handleNoteSave = () => {
   const newNote = {
     title: noteTitle.value,
@@ -76,6 +86,7 @@ const handleNoteSave = () => {
   saveNote(newNote).then(() => {
     getAndRenderNotes();
     renderActiveNote();
+
   });
 };
 
